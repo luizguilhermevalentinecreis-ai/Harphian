@@ -131,19 +131,6 @@ OFF
 
 # Project Structure
 
-```
-Harphian-FTC
-│
-├── TeamCode
-│   │
-│   └── src/main/java
-│       │
-│       └── TeleOp
-│
-├── README.md
-└── LICENSE
-```
-
 ---
 
 # Installation
