@@ -1,7 +1,7 @@
 # Harphian FTC — Controle V0.1
 
 ## Visão Geral
-Código de TeleOp para robô FTC com chassi **mecanum** (4 rodas holonômicas) e sistema de **arremesso de artifacts**.  
+Código de TeleOp para robô FTC com chassi **mecanum** (4 rodas) e sistema de **arremesso de artifacts**.  
 Desenvolvido para o jogo **FTC DECODE 2025-2026**.
 
 ---
@@ -35,7 +35,7 @@ Desenvolvido para o jogo **FTC DECODE 2025-2026**.
 ## Sistemas
 
 ### Chassi Mecanum
-Movimentação holonômica com aceleração/desaceleração suavizadas por rampa.  
+Movimentação com aceleração/desaceleração suavizadas por rampa.  
 Parâmetros ajustáveis em `runOpMode()`:
 
 | Parâmetro | Padrão | Descrição |
