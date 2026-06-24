@@ -1,7 +1,9 @@
-
-
-
 # Harphian FTC — Controle V0.1
+
+<p align="center">
+  <img src="Logo2.png" alt="banner">
+</p>
+
 
 ## Visão Geral
 Código de TeleOp para robô FTC com chassi **mecanum** (4 rodas) e sistema de **arremesso de artifacts**.  
