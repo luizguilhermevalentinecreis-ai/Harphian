@@ -158,28 +158,6 @@ Harphian-FTC
 
 ---
 
-## Clone Repository
-
-```bash
-git clone https://github.com/USER/Harphian-FTC.git
-```
-
-Abra o projeto no Android Studio:
-
-```
-File → Open → Harphian-FTC
-```
-
-Compile:
-
-```
-Build → Make Project
-```
-
-Envie o código para o Control Hub.
-
----
-
 # Development Status
 
 | Sistema             | Status   |
