@@ -16,13 +16,7 @@ Sistema de controle para robô FTC com **Mecanum Drive**, controle de movimento 
 
 O **Harphian FTC Control System** é o software responsável pelo controle em modo **TeleOp** do robô da equipe Harphian para a temporada **FIRST Tech Challenge DECODE 2025–2026**.
 
-Desenvolvido em **Java utilizando FTC SDK**, o sistema possui foco em:
-
-* Controle preciso de drivetrain Mecanum
-* Movimentação suave e previsível
-* Resposta rápida aos comandos do piloto
-* Sistema integrado de lançamento
-* Telemetria para análise durante partidas
+Desenvolvido em **Java utilizando FTC SDK**
 
 ---
 
@@ -35,7 +29,7 @@ Sistema de movimentação omnidirecional utilizando quatro motores independentes
 Suporta:
 
 * Movimento frontal e traseiro
-* Movimento lateral (strafe)
+* Movimento lateral
 * Rotação no próprio eixo
 * Controle individual das rodas
 * Normalização automática de potência
