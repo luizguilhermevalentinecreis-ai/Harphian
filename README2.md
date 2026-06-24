@@ -1,6 +1,8 @@
 # Harphian FTC — Control System
 
 <p align="center">
+  <img src="Logo.png" alt="banner">
+</p>
 
 **FTC DECODE 2025–2026 | TeleOp Control System**
 
