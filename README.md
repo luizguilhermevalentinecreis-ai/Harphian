@@ -1,4 +1,4 @@
-![Uploading image.png…]()
+
 
 
 # Harphian FTC — Controle V0.1
