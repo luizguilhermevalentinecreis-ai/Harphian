@@ -1,7 +1,7 @@
 # Harphian FTC — Controle V0.1
 
 <p align="center">
-  <img src="Logo2.png" alt="banner">
+  <img src="Logo.png" alt="banner">
 </p>
 
 
