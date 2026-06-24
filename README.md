@@ -1,3 +1,6 @@
+https://lh3.googleusercontent.com/gg/AEir0wLvodG2w1W0qv92HUSfe-XIDfhyGG6xLwinSKgbQGqZWVkLcZtP7OCaOz4eqTCltxnto6gjXhToC2dZGDgbb_LFtljZKSQmjmEVH4N3Gbvatee5s44KBfwugw29dozgyzRikZHDVbsGvq9wASL1uiNksw8Q4SwGwb4xjTu6W95xWt-pBJM50sqrCp3v6KcV4qAeOsY2FtRD9t1ST4Sj-lfVu8xIjSwN9BIcMYFp_XMOO1mWMItQvDFPlDbq0yAbgSNOzOwsM7dFvyLgVYByDN1SCepos8XtJ1MZlaFcvhxR6FE3W8zYB8o7nqREH2Im9otVOr8TLo5PeFVwKGwZVSpb=s1600
+
+
 # Harphian FTC — Controle V0.1
 
 ## Visão Geral
