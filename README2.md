@@ -59,36 +59,6 @@ Benefícios:
 
 ---
 
-## Artifact Launcher
-
-Sistema responsável pelo lançamento dos Artifacts.
-
-Funcionamento:
-
-```
-Botão B pressionado
-        |
-        v
-Servo libera Artifact
-        |
-        v
-Shootwheel ativa
-        |
-        v
-Lançamento realizado
-```
-
-Ao liberar o botão:
-
-```
-Servo retorna para posição inicial
-        |
-        v
-Shootwheel desligado
-```
-
----
-
 # Hardware Configuration
 
 ## Hardware Map
