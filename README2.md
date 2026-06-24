@@ -169,7 +169,7 @@ Planejado:
 
 # Version History
 
-## V0.1 — Initial Release
+## V0.2 — Initial Release
 
 Primeira versão funcional contendo:
 
