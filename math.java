@@ -3,53 +3,41 @@ package org.firstinspires.ftc.teamcode.robot;
 import static org.firstinspires.ftc.teamcode.robot.RobotConfig.zonaMortaA;
 import static org.firstinspires.ftc.teamcode.robot.RobotConfig.zonaMortaG;
 import static org.firstinspires.ftc.teamcode.robot.RobotConfig.passoAceleracao;
-import static org.firstinspires.ftc.teamcode.robot.RobotConfig.passoDesaleração;
+import static org.firstinspires.ftc.teamcode.robot.RobotConfig.passoDesaceleracao;
 
 
-public class Math {
+public class RobotMath {
 
-
-    // Valor absoluto
-    public static double absoluto(double numero) {
-
+    public static double absoluto(double numero){
         return numero < 0 ? -numero : numero;
     }
 
+    public static double sinal(double numero){
 
+        if(numero > 0)
+            return 1;
 
-    // Retorna direção
-    public static double sinal(double numero) {
+        if(numero < 0)
+            return -1;
 
-        if(numero > 0) return 1.0;
-        if(numero < 0) return -1.0;
-
-        return 0.0;
+        return 0;
     }
 
-
-
-
-    // Limita valor
     public static double limitar(
             double numero,
             double minimo,
             double maximo
     ){
 
-        if(numero < minimo)
-            return minimo;
-
-        if(numero > maximo)
-            return maximo;
-
-        return numero;
+        return java.lang.Math.max(
+                minimo,
+                java.lang.Math.min(
+                        maximo,
+                        numero
+                )
+        );
     }
 
-
-
-
-
-    // Converter escala
     public static double mapear(
             double valor,
             double entradaMin,
@@ -58,7 +46,11 @@ public class Math {
             double saidaMax
     ){
 
-        return (valor - entradaMin)
+        if(entradaMax == entradaMin)
+            return 0;
+
+        return
+                (valor - entradaMin)
                 *
                 (saidaMax - saidaMin)
                 /
@@ -67,21 +59,19 @@ public class Math {
                 saidaMin;
     }
 
-
-
-
-
-    // Zona morta inteligente
     public static double deadzone(
             double valor,
             double zona
     ){
 
+        if(zona >= 1)
+            return 0;
+
         if(absoluto(valor) < zona)
             return 0;
 
-
-        return sinal(valor)
+        return limitar(
+                sinal(valor)
                 *
                 mapear(
                         absoluto(valor),
@@ -89,40 +79,34 @@ public class Math {
                         1,
                         0,
                         1
-                );
+                ),
+                -1,
+                1
+        );
     }
 
-
-
-
-
-    // Curva cúbica
     public static double aplicarCurvaValor(
             double entrada
     ){
 
-        if(
-            entrada < zonaMortaA &&
-            entrada > -zonaMortaA
-        )
-
+        if(absoluto(entrada) < zonaMortaA)
             entrada = 0;
 
-
-        return
+        double resultado =
                 (0.6 *
                 entrada *
                 entrada *
                 entrada)
                 +
                 (0.4 * entrada);
+
+        return limitar(
+                resultado,
+                -1,
+                1
+        );
     }
 
-
-
-
-
-    // Curva para gatilho
     public static double aplicarCurvaGatilho(
             double entrada
     ){
@@ -130,64 +114,72 @@ public class Math {
         if(entrada < zonaMortaG)
             entrada = 0;
 
-
-        return
+        double resultado =
                 (0.5 *
                 entrada *
                 entrada *
                 entrada)
                 +
                 (0.5 * entrada);
+
+        return limitar(
+                resultado,
+                0,
+                1
+        );
     }
 
-
-
-
-
-    // Curva personalizada
     public static double curva(
             double entrada,
             double peso
     ){
 
-        return
+        peso = limitar(
+                peso,
+                0,
+                1
+        );
+
+        return limitar(
                 (peso *
                 entrada *
                 entrada *
                 entrada)
                 +
-                ((1-peso)*entrada);
+                ((1-peso)*entrada),
+                -1,
+                1
+        );
     }
 
-
-
-
-
-    // Expo
     public static double exponencial(
             double entrada,
             double nivel
     ){
 
-        return
+        return limitar(
                 sinal(entrada)
                 *
                 java.lang.Math.pow(
                         absoluto(entrada),
                         nivel
-                );
+                ),
+                -1,
+                1
+        );
     }
 
-
-
-
-
-    // Interpolação
     public static double lerp(
             double atual,
             double alvo,
             double peso
     ){
+
+        peso = limitar(
+                peso,
+                0,
+                1
+        );
 
         return atual +
                 (alvo-atual)
@@ -195,54 +187,36 @@ public class Math {
                 peso;
     }
 
-
-
-
-
-    // Rampa de aceleração
     public static double rampa(
             double atual,
             double alvo
     ){
 
         double diferenca =
-                alvo-atual;
-
-
-
-        if(diferenca > passoAceleracao)
-            return atual+passoAceleracao;
-
-
-
-        if(diferenca < -passoAceleracao)
-            return atual-passoAceleracao;
-
-
+                alvo - atual;
 
         if(alvo == 0){
 
-            if(atual > passoDesaleração)
-                return atual-passoDesaleração;
+            if(absoluto(atual)
+                    <= passoDesaceleracao)
 
+                return 0;
 
-            if(atual < -passoDesaleração)
-                return atual+passoDesaleração;
-
-
-            return 0;
+            return atual -
+                    sinal(atual)
+                    *
+                    passoDesaceleracao;
         }
 
+        if(diferenca > passoAceleracao)
+            return atual + passoAceleracao;
 
+        if(diferenca < -passoAceleracao)
+            return atual - passoAceleracao;
 
         return alvo;
     }
 
-
-
-
-
-    // Normaliza ângulo -180 até 180
     public static double normalizarAngulo(
             double angulo
     ){
@@ -250,19 +224,12 @@ public class Math {
         while(angulo > 180)
             angulo -= 360;
 
-
         while(angulo < -180)
             angulo += 360;
-
 
         return angulo;
     }
 
-
-
-
-
-    // Distância entre pontos
     public static double distancia(
             double x1,
             double y1,
@@ -273,113 +240,84 @@ public class Math {
         double dx = x2-x1;
         double dy = y2-y1;
 
-
         return java.lang.Math.sqrt(
-                dx*dx + dy*dy
+                dx*dx +
+                dy*dy
         );
     }
 
-
-
-
-
-    // Encoder para graus
     public static double encoderParaGraus(
             double ticks,
             double ticksPorVolta
     ){
 
-        return
-                ticks /
+        if(ticksPorVolta == 0)
+            return 0;
+
+        return ticks /
                 ticksPorVolta *
                 360;
     }
 
-
-
-
-
-    // Graus para encoder
     public static double grausParaEncoder(
             double graus,
             double ticksPorVolta
     ){
 
-        return
-                graus /
+        if(ticksPorVolta == 0)
+            return 0;
+
+        return graus /
                 360 *
                 ticksPorVolta;
     }
 
-
-
-
-
-    // Encoder para distância
     public static double ticksParaDistancia(
             double ticks,
             double ticksPorVolta,
             double diametro
     ){
 
-        double voltas =
-                ticks / ticksPorVolta;
-
+        if(ticksPorVolta == 0)
+            return 0;
 
         return
-                voltas *
+                (ticks / ticksPorVolta)
+                *
                 (java.lang.Math.PI * diametro);
     }
 
-
-
-
-
-    // Aproxima suavemente
     public static double aproximar(
             double atual,
             double alvo,
             double passo
     ){
 
-        if(atual < alvo)
-            return limitar(
-                    atual+passo,
-                    atual,
-                    alvo
-            );
+        if(absoluto(alvo-atual) <= passo)
+            return alvo;
 
-
-        if(atual > alvo)
-            return limitar(
-                    atual-passo,
-                    alvo,
-                    atual
-            );
-
-
-        return atual;
+        return atual +
+                sinal(alvo-atual)
+                *
+                passo;
     }
 
-
-
-
-
-    // Média simples
     public static double media(
-            double a,
-            double b,
-            double c
+            double... valores
     ){
 
-        return (a+b+c)/3;
+        if(valores.length == 0)
+            return 0;
+
+        double soma = 0;
+
+        for(double valor : valores)
+            soma += valor;
+
+        return soma /
+                valores.length;
     }
 
-
-
-
-
-    // Rotação de vetor (field centric)
     public static double[] rotacionarVetor(
             double x,
             double y,
@@ -387,51 +325,39 @@ public class Math {
     ){
 
         double rad =
-                java.lang.Math.toRadians(angulo);
+                java.lang.Math.toRadians(
+                        angulo
+                );
 
+        return new double[]{
 
-        double novoX =
                 x *
                 java.lang.Math.cos(rad)
                 -
                 y *
-                java.lang.Math.sin(rad);
+                java.lang.Math.sin(rad),
 
-
-
-        double novoY =
                 x *
                 java.lang.Math.sin(rad)
                 +
                 y *
-                java.lang.Math.cos(rad);
+                java.lang.Math.cos(rad)
 
-
-
-        return new double[]{
-                novoX,
-                novoY
         };
     }
 
 
-
-
-
-    // PID
     public static class PID {
-
 
         private double kp;
         private double ki;
         private double kd;
 
+        private double erroAnterior;
+        private double integral;
 
-        private double erroAnterior = 0;
-        private double integral = 0;
-
-
-
+        private double limiteIntegral = 100;
+        private double limiteSaida = 1;
 
         public PID(
                 double kp,
@@ -445,10 +371,6 @@ public class Math {
 
         }
 
-
-
-
-
         public double calcular(
                 double alvo,
                 double atual
@@ -457,25 +379,53 @@ public class Math {
             double erro =
                     alvo-atual;
 
-
             integral += erro;
 
+            integral =
+                    limitar(
+                            integral,
+                            -limiteIntegral,
+                            limiteIntegral
+                    );
 
             double derivada =
-                    erro-erroAnterior;
-
+                    erro -
+                    erroAnterior;
 
             erroAnterior = erro;
 
-
-
-            return
+            return limitar(
                     kp*erro
                     +
                     ki*integral
                     +
-                    kd*derivada;
+                    kd*derivada,
+                    -limiteSaida,
+                    limiteSaida
+            );
+        }
+
+        public void setLimiteIntegral(
+                double limite
+        ){
+
+            limiteIntegral = limite;
+
+        }
+
+        public void setLimiteSaida(
+                double limite
+        ){
+
+            limiteSaida = limite;
+
+        }
+
+        public void reset(){
+
+            erroAnterior = 0;
+            integral = 0;
+
         }
     }
-
 }
